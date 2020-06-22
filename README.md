@@ -4,4 +4,4 @@
 <br>
 首页<br>
 <br>
-![](https://github.com/wfwy/blog/img/1.png)
+![your-picture](img/1.png?raw=true)
