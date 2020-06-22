@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.CommentMaapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="comment" type="com.example.demo.entity.Comment" autoMapping="true">
+        <id column="id" property="id" />
+        <result column="aid" property="aid"/>
+        <result column="username" property="username"/>
+        <result column="author" property="author"/>
+        <result column="comment" property="comment"/>
+        <result column="creat_time" property="creat_time"/>
+        <result column="parent_id" property="parent_id"/>
+        <collection property="children" column="id" ofType="com.example.demo.entity.Comment" select="findCommentByid"/>
+    </resultMap>
+    <insert id="insertComment" parameterType="com.example.demo.entity.Comment" >
+        insert into comment(aid, username, author, comment, parent_id)
+        VALUES (#{aid},#{username},#{author},#{comment},#{parent_id})
+    </insert>
+    <select id="listComment" parameterType="com.example.demo.entity.Comment" resultMap="comment">
+        select * from comment where parent_id = 0 and aid = #{aid}
+    </select>
+    <select id="findCommentByid" parameterType="com.example.demo.entity.Comment" resultMap="comment">
+        select * from comment where parent_id = #{id}
+    </select>
+</mapper>

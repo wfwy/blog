@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.PermissionMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="permission" type="com.example.demo.entity.Permission" autoMapping="true"/>
+    <select id="findPremissionByName" resultMap="permission" parameterType="com.example.demo.entity.Permission">
+        SELECT p.*
+        FROM role r
+        INNER JOIN role_permission rp
+        ON r.id = rp.rid
+        INNER JOIN permission p
+        ON p.id = rp.pid
+        WHERE r.id in (
+            SELECT r.id
+            FROM user u
+            INNER JOIN user_role ur
+            ON u.id = ur.uid
+            INNER JOIN role r
+            ON r.id = ur.rid
+            WHERE u.username = #{username}
+        )
+    </select>
+</mapper>

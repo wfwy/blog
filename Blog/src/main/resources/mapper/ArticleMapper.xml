@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.ArticleMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="article" type="com.example.demo.entity.Article" autoMapping="true">
+    </resultMap>
+    <insert id="addArticle" parameterType="com.example.demo.entity.Article">
+        insert into article(id, article_type, article_title, article_content_html, article_content_md,article_abstract,article_cover,author)
+        value (#{id},#{article_type},#{article_title},#{article_content_html},#{article_content_md},#{article_abstract},#{article_cover},#{author})
+    </insert>
+    <select id="selArticle" resultMap="article" parameterType="com.example.demo.entity.Article">
+        select *
+        from article
+        where id=#{id}
+    </select>
+    <select id="listArticle" resultMap="article" parameterType="com.example.demo.entity.Article">
+        select *
+        from article
+        <if test="selArticle != null">
+            where article_title like concat('%',#{selArticle},'%') or article_abstract like concat('%',#{selArticle},'%')
+        </if>
+        order by creat_time desc
+    </select>
+    <select id="listByName" resultMap="article" parameterType="com.example.demo.entity.Article">
+        select *
+        from article
+        <where>
+            <if test="username != null">
+                and author = #{username}
+            </if>
+            <if test="article_type != null">
+                and article_type = #{article_type}
+            </if>
+        </where>
+        order by creat_time desc
+    </select>
+    <select id="listNewArticle" resultMap="article" parameterType="com.example.demo.entity.Article">
+        select *
+        from article
+        order by creat_time desc
+        limit 0,3
+    </select>
+    <select id="listArticles" resultMap="article" parameterType="com.example.demo.entity.Article">
+        select *
+        from article
+        <where>
+            <if test="username != '' and role !='admin'">
+                and author = #{username}
+            </if>
+        </where>
+        order by creat_time desc
+    </select>
+    <delete id="delById" parameterType="com.example.demo.entity.Article">
+        delete from article where id =#{id}
+    </delete>
+    <update id="updateById" parameterType="com.example.demo.entity.Article">
+        update article
+        set article_type=#{article_type}, article_title=#{article_title},
+            article_content_html=#{article_content_html},
+            article_content_md=#{article_content_md},article_abstract=#{article_abstract},
+            article_cover=#{article_cover}
+        where id=#{id}
+    </update>
+    <select id="selectArticle" parameterType="com.example.demo.entity.Article" resultMap="article">
+        select * from article
+        <where>
+            <if test="article_type != ''">
+                and article_type = #{article_type}
+            </if>
+            <if test="article_title != ''">
+                and article_title like concat('%',#{article_title},'%')
+            </if>
+            <if test="username != '' and role !='admin'">
+                and author = #{username}
+            </if>
+        </where>
+    </select>
+    <update id="updateHits" parameterType="com.example.demo.entity.Article">
+        update article set hits = hits + 1 where id = #{id}
+    </update>
+
+
+</mapper>
