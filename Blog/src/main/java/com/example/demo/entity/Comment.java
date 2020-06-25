@@ -16,6 +16,7 @@ public class Comment {
     private String comment;
     private Timestamp creat_time;
     private int parent_id;
+    private Boolean state;
     List<Comment> children;
 
     public int getId() {
@@ -80,5 +81,13 @@ public class Comment {
 
     public void setChildren(List<Comment> children) {
         this.children = children;
+    }
+
+    public Boolean getState() {
+        return state;
+    }
+
+    public void setState(Boolean state) {
+        this.state = state;
     }
 }

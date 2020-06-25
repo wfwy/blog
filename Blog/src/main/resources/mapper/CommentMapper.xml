@@ -11,16 +11,17 @@
         <result column="comment" property="comment"/>
         <result column="creat_time" property="creat_time"/>
         <result column="parent_id" property="parent_id"/>
-        <collection property="children" column="id" ofType="com.example.demo.entity.Comment" select="findCommentByid"/>
-    </resultMap>
+        <collection property="children" column="id" ofType="com.example.demo.entity.Comment" select="findByid"/>
+     </resultMap>
     <insert id="insertComment" parameterType="com.example.demo.entity.Comment" >
         insert into comment(aid, username, author, comment, parent_id)
         VALUES (#{aid},#{username},#{author},#{comment},#{parent_id})
     </insert>
+
     <select id="listComment" parameterType="com.example.demo.entity.Comment" resultMap="comment">
-        select * from comment where parent_id = 0 and aid = #{aid}
+        select * from comment where parent_id=0 and aid = #{aid} order by creat_time desc
     </select>
-    <select id="findCommentByid" parameterType="com.example.demo.entity.Comment" resultMap="comment">
-        select * from comment where parent_id = #{id}
+    <select id="findByid" resultMap="comment" parameterType="com.example.demo.entity.Comment">
+        select * from comment where parent_id = #{id} order by creat_time desc
     </select>
 </mapper>

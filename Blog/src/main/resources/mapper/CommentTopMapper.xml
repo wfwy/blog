@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.CommentTopMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="CommentTop" type="com.example.demo.entity.CommentTop" autoMapping="true"/>
+
+    <select id="selectAll" parameterType="com.example.demo.entity.CommentTop" resultMap="CommentTop">
+        select * from comment_top
+        where uid=#{uid} and aid=#{aid}
+    </select>
+    <insert id="insert" parameterType="com.example.demo.entity.CommentTop">
+        insert into comment_top(id, cid, aid, uid, state) values (#{id},#{cid},#{aid},#{uid},#{state})
+    </insert>
+    <update id="update" parameterType="com.example.demo.entity.CommentTop" >
+        update comment_top set state = #{state} where uid = #{uid} and aid = #{aid} and cid= #{cid}
+    </update>
+</mapper>

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80020
 File Encoding         : 65001
 
-Date: 2020-06-22 11:20:11
+Date: 2020-06-25 18:32:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -60,21 +60,70 @@ CREATE TABLE `comment` (
   `author` varchar(20) COLLATE utf8_bin DEFAULT NULL,
   `comment` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `creat_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `state` tinyint DEFAULT NULL,
   `parent_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of comment
 -- ----------------------------
-INSERT INTO `comment` VALUES ('1', '32', 'test', 'wfwy', '你好啊！！！！！！！！！！！！', '2020-06-21 17:09:15', '0');
-INSERT INTO `comment` VALUES ('2', '32', 'test', 'wfwy', 'hello!!', '2020-06-21 17:11:36', '1');
-INSERT INTO `comment` VALUES ('3', '32', 'test', 'wfwy', '测试测试', '2020-06-21 17:11:49', '1');
-INSERT INTO `comment` VALUES ('4', '32', 'test', 'wfwy', '再来再来', '2020-06-21 17:12:29', '0');
-INSERT INTO `comment` VALUES ('5', '32', 'wfwy', 'wfwy', '来了；来了', '2020-06-21 20:19:33', '0');
-INSERT INTO `comment` VALUES ('6', '31', 'wfwy', 'wfwy', '测试测试', '2020-06-21 20:57:25', '0');
-INSERT INTO `comment` VALUES ('7', '32', 'wfwy', 'test', '测试测试', '2020-06-22 11:13:12', '1');
-INSERT INTO `comment` VALUES ('8', '32', 'wfwy', 'wfwy', '321332', '2020-06-22 11:13:24', '1');
+INSERT INTO `comment` VALUES ('1', '32', 'test', 'wfwy', '你好啊！！！！！！！！！！！！', '2020-06-21 17:09:15', null, '0');
+INSERT INTO `comment` VALUES ('2', '32', 'test', 'wfwy', 'hello!!', '2020-06-21 17:11:36', null, '1');
+INSERT INTO `comment` VALUES ('3', '32', 'test', 'wfwy', '测试测试', '2020-06-21 17:11:49', null, '1');
+INSERT INTO `comment` VALUES ('4', '32', 'test', 'wfwy', '再来再来', '2020-06-21 17:12:29', null, '0');
+INSERT INTO `comment` VALUES ('5', '32', 'wfwy', 'wfwy', '来了；来了', '2020-06-21 20:19:33', null, '0');
+INSERT INTO `comment` VALUES ('6', '31', 'wfwy', 'wfwy', '测试测试', '2020-06-21 20:57:25', null, '0');
+INSERT INTO `comment` VALUES ('7', '32', 'wfwy', 'test', '测试测试', '2020-06-22 11:13:12', null, '1');
+INSERT INTO `comment` VALUES ('8', '32', 'wfwy', 'wfwy', '321332', '2020-06-22 11:13:24', null, '1');
+INSERT INTO `comment` VALUES ('9', '30', 'wfwy', 'wfwy', '发大幅度', '2020-06-22 15:28:09', null, '0');
+INSERT INTO `comment` VALUES ('10', '32', 'wfwy', 'test', '安徽发放到了哈利迪', '2020-06-22 18:30:33', null, '4');
+INSERT INTO `comment` VALUES ('11', '32', 'wfwy', 'test', '阿道夫萨法', '2020-06-22 18:30:40', null, '4');
+INSERT INTO `comment` VALUES ('12', '32', 'wfwy', 'test', '啊发顺丰', '2020-06-22 18:30:49', null, '4');
+INSERT INTO `comment` VALUES ('13', '32', 'wfwy', 'wfwy', '阿斯顿发达', '2020-06-22 18:32:19', null, '0');
+INSERT INTO `comment` VALUES ('14', '32', 'wfwy', 'wfwy', '阿凡达是', '2020-06-22 18:32:27', null, '5');
+INSERT INTO `comment` VALUES ('15', '32', 'wfwy', 'wfwy', '阿范德萨', '2020-06-22 18:32:31', null, '5');
+INSERT INTO `comment` VALUES ('16', '32', 'wfwy', 'wfwy', '113', '2020-06-22 18:54:20', null, '13');
+INSERT INTO `comment` VALUES ('17', '32', 'wfwy', 'wfwy', '11111111', '2020-06-22 18:54:24', null, '13');
+INSERT INTO `comment` VALUES ('18', '32', 'wfwy', 'wfwy', '安抚', '2020-06-22 19:40:55', null, '13');
+INSERT INTO `comment` VALUES ('19', '32', 'wfwy', 'wfwy', '阿凡达阿发', '2020-06-22 19:41:30', null, '13');
+INSERT INTO `comment` VALUES ('20', '32', 'wfwy', 'wfwy', '1333', '2020-06-22 19:42:58', null, '0');
+INSERT INTO `comment` VALUES ('21', '32', 'test', 'wfwy', 'afafaf', '2020-06-22 19:43:34', null, '0');
+INSERT INTO `comment` VALUES ('22', '32', 'test', 'wfwy', 'afdaf ', '2020-06-22 19:43:42', null, '20');
+INSERT INTO `comment` VALUES ('23', '32', 'test', 'test', '测试测试', '2020-06-22 19:45:24', null, '21');
+INSERT INTO `comment` VALUES ('24', '32', 'test', 'test', '测试测试', '2020-06-22 19:45:29', null, '0');
+
+-- ----------------------------
+-- Table structure for `comment_top`
+-- ----------------------------
+DROP TABLE IF EXISTS `comment_top`;
+CREATE TABLE `comment_top` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `cid` int DEFAULT NULL,
+  `aid` int DEFAULT NULL,
+  `uid` int DEFAULT NULL,
+  `state` tinyint DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ----------------------------
+-- Records of comment_top
+-- ----------------------------
+INSERT INTO `comment_top` VALUES ('1', '1', '32', '1', '0');
+INSERT INTO `comment_top` VALUES ('2', '12', '32', '1', '0');
+INSERT INTO `comment_top` VALUES ('3', '20', '32', '2', '1');
+INSERT INTO `comment_top` VALUES ('4', '24', '32', '1', '0');
+INSERT INTO `comment_top` VALUES ('5', '24', '32', '1', '0');
+INSERT INTO `comment_top` VALUES ('6', '21', '32', '1', '0');
+INSERT INTO `comment_top` VALUES ('7', '23', '32', '1', '0');
+INSERT INTO `comment_top` VALUES ('8', '20', '32', '1', '0');
+INSERT INTO `comment_top` VALUES ('9', '22', '32', '1', '0');
+INSERT INTO `comment_top` VALUES ('10', '16', '32', '1', '0');
+INSERT INTO `comment_top` VALUES ('11', '1', '32', '1', '0');
+INSERT INTO `comment_top` VALUES ('12', '12', '32', '1', '0');
+INSERT INTO `comment_top` VALUES ('13', '24', '32', '1', '0');
+INSERT INTO `comment_top` VALUES ('14', '24', '32', '1', '0');
+INSERT INTO `comment_top` VALUES ('15', '21', '32', '1', '0');
 
 -- ----------------------------
 -- Table structure for `menu`
@@ -269,7 +318,7 @@ INSERT INTO `user_notification` VALUES ('17', '3', '9', '0');
 INSERT INTO `user_notification` VALUES ('18', '4', '9', '0');
 INSERT INTO `user_notification` VALUES ('19', '1', '10', '0');
 INSERT INTO `user_notification` VALUES ('20', '2', '10', '0');
-INSERT INTO `user_notification` VALUES ('21', '3', '10', '0');
+INSERT INTO `user_notification` VALUES ('21', '3', '10', '1');
 INSERT INTO `user_notification` VALUES ('22', '4', '10', '0');
 
 -- ----------------------------
